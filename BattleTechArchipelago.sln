@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+VisualStudioVersion = 18.0.0.0
+MinimumVisualStudioVersion = 18.0.0.0
+# Visual Studio Version 17
+#VisualStudioVersion = 17.7.34221.43
+#MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleTechArchipelago", "BattleTechArchipelago.csproj", "{FD73D250-0FDB-40FC-8E06-4A7136A396D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD73D250-0FDB-40FC-8E06-4A7136A396D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD73D250-0FDB-40FC-8E06-4A7136A396D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD73D250-0FDB-40FC-8E06-4A7136A396D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD73D250-0FDB-40FC-8E06-4A7136A396D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7D7C3D8-0E5F-4B36-9997-DEC2FD5EA112}
+	EndGlobalSection
+EndGlobal

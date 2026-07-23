@@ -1,0 +1,12 @@
+{
+	"Name": "Archipelago",
+	"Description": "Allows BattleTech to work with the Archipelago multiplayer randomizer system",
+	"Author": "Mike 'Yoshi MCF' Feldman",
+	"Version": "0.0.1",
+	"Enabled": true,
+
+	"DLL": "BattleTechArchipelago.dll",
+	"DLLEntryPoint": "BattleTechArchipelago.Main.Start",
+
+	"DependsOn": ["ModTek"]
+}

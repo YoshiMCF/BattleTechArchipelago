@@ -1,0 +1,5 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<BattleTechGameDir>C:\path\to\BATTLETECH\</BattleTechGameDir>
+	</PropertyGroup>
+</Project>
