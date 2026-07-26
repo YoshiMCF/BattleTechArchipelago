@@ -23,7 +23,7 @@ class ConnectionDialog : MonoBehaviour {
 		"wss://archipelago.gg";
 #endif
 	private uint _port = 12345;
-	private string _username = "Kerensky"
+	private string _username = "Kerensky";
 	private string _password = "";
 
 	[HarmonyPatch(typeof(MainMenu), nameof(MainMenu.Init))]
