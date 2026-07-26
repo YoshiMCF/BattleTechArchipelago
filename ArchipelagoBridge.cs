@@ -9,8 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace BattleTechArchipelago;
 
-static class ArchipelagoBridge
-{
+static class ArchipelagoBridge {
 	private static ArchipelagoSession _session;
 
 	public static void CreateSession(string serverUrl, uint port, string username, string password) {
@@ -29,9 +28,8 @@ static class ArchipelagoBridge
 		Main.Log.Log(result.Successful ? "Login succeeded" : "Login failed");
 	}
 
- 	#region Callbacks
-	private static void SubscribeToArchipelagoCallbacks()
-	{
+	#region Callbacks
+	private static void SubscribeToArchipelagoCallbacks() {
 		Main.Log.Log("Subscribing to callbacks");
 
 		_session.Socket.ErrorReceived += OnErrorReceived;
@@ -47,59 +45,49 @@ static class ArchipelagoBridge
 		_session.MessageLog.OnMessageReceived += OnMessageReceived;
 	}
 
-	private static void OnErrorReceived(Exception e, string message)
-	{
+	private static void OnErrorReceived(Exception e, string message) {
 		Main.Log.LogWarning($"Error received: {message}\n{e}");
 	}
 
-	private static void OnPacketReceived(ArchipelagoPacketBase packet)
-	{
+	private static void OnPacketReceived(ArchipelagoPacketBase packet) {
 		Main.Log.LogDebug($"Packet received: {packet}");
 	}
 
-	private static void OnPacketSent(ArchipelagoPacketBase[] packets)
-	{
+	private static void OnPacketSent(ArchipelagoPacketBase[] packets) {
 		string packetsStr = string.Join("\n", (object[])packets);
 		Main.Log.LogDebug($"Sent {packets.Length} packets: {packetsStr}");
 	}
 
-	private static void OnSocketClosed(string reason)
-	{
+	private static void OnSocketClosed(string reason) {
 		Main.Log.Log($"Socket closed: {reason}");
 	}
 
-	private static void OnSocketOpened()
-	{
+	private static void OnSocketOpened() {
 		Main.Log.Log($"Socket opened");
 	}
 
-	private static void OnItemReceived(ReceivedItemsHelper items)
-	{
+	private static void OnItemReceived(ReceivedItemsHelper items) {
 		ItemInfo item = items.DequeueItem();
 		Main.Log.Log($"Received item: {item}");
 	}
 
-	private static void OnCheckedLocationsUpdated(ReadOnlyCollection<long> newCheckedLocations)
-	{
+	private static void OnCheckedLocationsUpdated(ReadOnlyCollection<long> newCheckedLocations) {
 		string locationsStr = string.Join(", ", newCheckedLocations);
 		Main.Log.Log($"Checked locations updated: [{locationsStr}]");
 	}
 
-	private static void OnMessageReceived(LogMessage message)
-	{
+	private static void OnMessageReceived(LogMessage message) {
 		Main.Log.Log($"Message received: {message}");
 	}
 	#endregion
 
 	#region Locations
-	public static void CompleteLocationCheck(long locationId)
-	{
+	public static void CompleteLocationCheck(long locationId) {
 		Main.Log.LogDebug("Completed location check: {locationId}");
 		_session.Locations.CompleteLocationChecks(locationId);
 	}
 
-	public static void ScoutLocation(long locationId)
-	{
+	public static void ScoutLocation(long locationId) {
 		Main.Log.LogDebug("Scouting location {locationId}");
 		// _session.Locations.ScoutLocationsAsync(); // TODO async message queue
 		throw new System.NotImplementedException();
