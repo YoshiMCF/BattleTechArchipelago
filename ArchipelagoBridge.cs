@@ -3,14 +3,18 @@ using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
 using Archipelago.MultiClient.Net.Models;
+using Archipelago.Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Reflection;
 
 namespace BattleTechArchipelago;
 
-static class ArchipelagoBridge {
+public static class ArchipelagoBridge {
+
 	private static ArchipelagoSession _session;
+	private static ItemsHandler _itemsHandler;
 
 	public static bool CreateSession(string serverUrl, uint port, string username, string password) {
 		Main.Log.Log($"Creating session {serverUrl}:{port}");
@@ -19,6 +23,7 @@ static class ArchipelagoBridge {
 		if (_session == null)
 			return false;
 
+		CreateHandlers();
 		SubscribeToArchipelagoCallbacks();
 
 		Main.Log.Log($"Connecting and logging in as {username}");
@@ -27,6 +32,13 @@ static class ArchipelagoBridge {
 		LoginResult result = _session.TryConnectAndLogin(GAME_NAME, username, ItemsHandlingFlags.AllItems, password: password);
 		Main.Log.Log(result.Successful ? "Login succeeded" : "Login failed");
 		return result.Successful;
+	}
+
+	private static void CreateHandlers() {
+		if (_itemsHandler != null)
+			UnityEngine.Object.Destroy(_itemsHandler.gameObject);
+
+		_itemsHandler = ItemsHandler.Initialize();
 	}
 
 	#region Callbacks
@@ -69,7 +81,9 @@ static class ArchipelagoBridge {
 
 	private static void OnItemReceived(ReceivedItemsHelper items) {
 		ItemInfo item = items.DequeueItem();
-		Main.Log.Log($"Received item: {item}");
+		Main.Log.Log($"Received item: {item.ItemName}");
+
+		_itemsHandler.OnItemReceived(item);
 	}
 
 	private static void OnCheckedLocationsUpdated(ReadOnlyCollection<long> newCheckedLocations) {
