@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BattleTech.UI;
 using HarmonyLib;
-using BattleTech.UI;
+using HBS;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BattleTechArchipelago;
@@ -132,7 +133,18 @@ class ConnectionDialog : MonoBehaviour {
 			GUI.color = isValid ? Color.white : Color.grey;
 			Rect newGameRect = new Rect(pos, new Vector2(WINDOW_USABLE_SPACE, ROW_HEIGHT));
 			if (GUI.Button(newGameRect, "Start New Game") && isValid) {
-				ArchipelagoBridge.CreateSession(_serverUrl, _port, _username, _password);
+				bool success = ArchipelagoBridge.CreateSession(_serverUrl, _port, _username, _password);
+				if (success) {
+					MainMenu mainMenu = LazySingletonBehavior<UIManager>.Instance.GetOrCreateUIModule<MainMenu>();
+					const string BUTTON_NAME = // See MainMenu.ReceiveButtonPress
+#if DEBUG
+						"New_Debug_Campaign";
+#else
+						"New_Campaign";
+#endif
+					NewGamePopup ngPopup = LazySingletonBehavior<UIManager>.Instance.GetOrCreateUIModule<NewGamePopup>();
+					ngPopup.Initialize(BUTTON_NAME, mainMenu);
+				}
 			}
 		}
 	}

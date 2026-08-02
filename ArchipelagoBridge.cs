@@ -12,12 +12,12 @@ namespace BattleTechArchipelago;
 static class ArchipelagoBridge {
 	private static ArchipelagoSession _session;
 
-	public static void CreateSession(string serverUrl, uint port, string username, string password) {
+	public static bool CreateSession(string serverUrl, uint port, string username, string password) {
 		Main.Log.Log($"Creating session {serverUrl}:{port}");
 
 		_session = ArchipelagoSessionFactory.CreateSession(serverUrl, (int)port);
 		if (_session == null)
-			return;
+			return false;
 
 		SubscribeToArchipelagoCallbacks();
 
@@ -26,6 +26,7 @@ static class ArchipelagoBridge {
 		const string GAME_NAME = "BATTLETECH";
 		LoginResult result = _session.TryConnectAndLogin(GAME_NAME, username, ItemsHandlingFlags.AllItems, password: password);
 		Main.Log.Log(result.Successful ? "Login succeeded" : "Login failed");
+		return result.Successful;
 	}
 
 	#region Callbacks
