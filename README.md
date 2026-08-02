@@ -9,10 +9,11 @@ Compiled releases have not yet been set up. The only way to try this mod is to b
 
 ## Building
 * Install [ModTek](https://github.com/BattletechModders/ModTek) v4.5.0+
-* Open BattleTechARchipelago.sln in Visual Studio 2026
+* Open BattleTechArchipelago.sln in Visual Studio 2026
 * Copy Directory.Build.props.CHANGEME to Directory.Build.props
 * Modify Directory.Build.props so that BattleTechGameDir points at your installation of BattleTech (e.g. `C:\Steam\steamapps\common\BATTLETECH\`)
 * Install dependencies
+	* Note that a custom version of Archipelago.MultiClient.Net is included in the lib folder. This was built from this [git repo](https://github.com/YoshiMCF/Archipelago.MultiClient.Net/) along with a custom version of Newtonsoft.Json. Newtonsoft.Json has been renamed to Archipelago.Newtonsoft.Json to avoid conflicts with the older version of Newtonsoft.Json that is included in BattleTech.
 * Create an empty directory at $(BattleTechGameDir)\Mods\BattleTechArchipelago
 * Compile the mod. Check that it copied mod.json, BattleTechArchipelago.dll, and other files to $(BattleTechGameDir)\Mods\BattleTechArchipelago.
 * Run BATTLETECH. Ensure the mod is enabled in the mods menu.
@@ -26,4 +27,6 @@ Compiled releases have not yet been set up. The only way to try this mod is to b
     * add "testToolsEnable": "true"
     * set "disableSplashScreens": true
     * set "disableIntroMove": true
+	* Add Company tag "quickstart_argo" to launch the game from the Argo
+	* Use Ctrl-Shift-Minus to bring up that menu later
     * More info about that [here](https://forumcontent.paradoxplaza.com/public/455608/Battletech%20Cheat-Debug%20Guide%20-%20Google%20Docs.pdf)
