@@ -15,6 +15,7 @@ public static class ArchipelagoBridge {
 
 	private static ArchipelagoSession _session;
 	private static ItemsHandler _itemsHandler;
+	internal static ChecksHandler checksHandler { get; private set; }
 
 	public static bool CreateSession(string serverUrl, uint port, string username, string password) {
 		Main.Log.Log($"Creating session {serverUrl}:{port}");
@@ -37,8 +38,11 @@ public static class ArchipelagoBridge {
 	private static void CreateHandlers() {
 		if (_itemsHandler != null)
 			UnityEngine.Object.Destroy(_itemsHandler.gameObject);
+		if (checksHandler != null)
+			UnityEngine.Object.Destroy(checksHandler.gameObject);
 
 		_itemsHandler = ItemsHandler.Initialize();
+		checksHandler = ChecksHandler.Initialize();
 	}
 
 	#region Callbacks
@@ -98,12 +102,12 @@ public static class ArchipelagoBridge {
 
 	#region Locations
 	public static void CompleteLocationCheck(long locationId) {
-		Main.Log.LogDebug("Completed location check: {locationId}");
+		Main.Log.Log($"Completed location check: {locationId}");
 		_session.Locations.CompleteLocationChecks(locationId);
 	}
 
 	public static void ScoutLocation(long locationId) {
-		Main.Log.LogDebug("Scouting location {locationId}");
+		Main.Log.Log($"Scouting location {locationId}");
 		// _session.Locations.ScoutLocationsAsync(); // TODO async message queue
 		throw new System.NotImplementedException();
 	}
