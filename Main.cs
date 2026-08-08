@@ -6,7 +6,8 @@ using System;
 namespace BattleTechArchipelago;
 
 public static class Main {
-	public static readonly ILog Log = Logger.GetLogger(nameof(BattleTechArchipelago));
+	// TODO change to LogLevel.Log in release for 1.0.0
+	public static readonly ILog Log = Logger.GetLogger(nameof(BattleTechArchipelago), LogLevel.Debug);
 	public static void Start() {
 		Log.Log("Starting");
 
